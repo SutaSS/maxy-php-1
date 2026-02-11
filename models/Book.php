@@ -1,3 +1,5 @@
+<?php
+
 class Book {
     public $judul;
     public $penulis;

@@ -1,3 +1,5 @@
+<?php
+
 class LibraryService {
 
     private $books = [];
