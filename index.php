@@ -113,7 +113,7 @@ $books = $library->getBooks();
 <body>
 
 <div class="container">
-    <h1>📚 Sistem Manajemen Perpustakaan</h1>
+    <h1>Sistem Manajemen Perpustakaan</h1>
 
     <table>
         <tr>
