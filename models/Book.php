@@ -1,13 +1,25 @@
 <?php
 
-class Book {
+class Book
+{
     public $judul;
-    public $penulis;
-    public $tersedia;
+    public $pengarang;
+    public $tahunTerbit;
+    public $genre;
 
-    public function __construct($judul, $penulis, $tersedia = true) {
+    public function __construct($judul, $pengarang, $tahunTerbit, $genre)
+    {
         $this->judul = $judul;
-        $this->penulis = $penulis;
-        $this->tersedia = $tersedia;
+        $this->pengarang = $pengarang;
+        $this->tahunTerbit = $tahunTerbit;
+        $this->genre = $genre;
+    }
+
+    public function getDetailBuku()
+    {
+        return "Judul: {$this->judul}, 
+                Pengarang: {$this->pengarang}, 
+                Tahun Terbit: {$this->tahunTerbit}, 
+                Genre: {$this->genre}";
     }
 }
