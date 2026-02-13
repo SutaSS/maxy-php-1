@@ -1,29 +1,48 @@
 <?php
 require_once "models/Book.php";
+require_once "models/Perpustakaan.php";
 require_once "services/LibraryService.php";
 
 session_start();
 
-if (!isset($_SESSION['books'])) {
-    $_SESSION['books'] = require "data/books.php";
+/*
+| Inisialisasi Perpustakaan di Session
+*/
+if (!isset($_SESSION['perpus'])) {
+
+    $perpus = new Perpustakaan("Jakarta");
+    
+    $books = require "data/books.php";
+    
+    foreach ($books as $book) {
+        $perpus->tambahBuku($book);
+    }
+
+    $_SESSION['perpus'] = $perpus;
 }
 
-$library = new LibraryService($_SESSION['books']);
+$perpus = $_SESSION['perpus'];
+$library = new LibraryService($perpus);
+
+/*
+| Handle Request
+*/
+$message = null;
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (isset($_POST['pinjam'])) {
-        $library->pinjamBuku($_POST['judul']);
+        $message = $library->pinjamBuku($_POST['judul']);
     }
 
     if (isset($_POST['kembali'])) {
-        $library->kembalikanBuku($_POST['judul']);
+        $message = $library->kembalikanBuku($_POST['judul']);
     }
 
-    $_SESSION['books'] = $library->getBooks();
+    $_SESSION['perpus'] = $perpus;
 }
 
-$books = $library->getBooks();
+$books = $perpus->getDaftarBuku();
 ?>
 
 <!DOCTYPE html>
@@ -126,7 +145,7 @@ $books = $library->getBooks();
         <?php foreach ($books as $book): ?>
         <tr>
             <td><?= $book->judul ?></td>
-            <td><?= $book->penulis ?></td>
+            <td><?= $book->pengarang ?></td>
             <td>
                 <?php if ($book->tersedia): ?>
                     <span class="status-available">Tersedia</span>

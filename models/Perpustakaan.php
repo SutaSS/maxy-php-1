@@ -17,12 +17,6 @@ class Perpustakaan
 
     public function getDaftarBuku()
     {
-        $hasil = "Daftar Buku di Perpustakaan {$this->lokasi}: <br><br>";
-
-        foreach ($this->daftarBuku as $buku) {
-            $hasil .= $buku->getDetailBuku() . "<br>";
-        }
-
-        return $hasil;
+        return $this->daftarBuku;
     }
 }

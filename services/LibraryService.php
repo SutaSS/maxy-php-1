@@ -1,34 +1,29 @@
 <?php
 
 class LibraryService {
+    private $perpustakaan;
 
-    private $books = [];
-
-    public function __construct($books) {
-        $this->books = $books;
-    }
-
-    public function getBooks() {
-        return $this->books;
+    public function __construct(Perpustakaan $perpustakaan) {
+        $this->perpustakaan = $perpustakaan;
     }
 
     public function pinjamBuku($judul) {
-        foreach ($this->books as $book) {
-            if ($book->judul == $judul && $book->tersedia) {
-                $book->tersedia = false;
+        foreach ($this->perpustakaan->getDaftarBuku() as $buku) {
+            if ($buku->judul === $judul && $buku->tersedia) {
+                $buku->tersedia = false;
                 return "Buku berhasil dipinjam.";
             }
         }
-        return "Buku tidak tersedia.";
+        return "Buku tidak tersedia atau sudah dipinjam.";
     }
 
     public function kembalikanBuku($judul) {
-        foreach ($this->books as $book) {
-            if ($book->judul == $judul && !$book->tersedia) {
-                $book->tersedia = true;
+        foreach ($this->perpustakaan->getDaftarBuku() as $buku) {
+            if ($buku->judul === $judul && !$buku->tersedia) {
+                $buku->tersedia = true;
                 return "Buku berhasil dikembalikan.";
             }
         }
-        return "Buku tidak ditemukan atau sudah tersedia.";
+        return "Buku sudah tersedia atau tidak ditemukan.";
     }
 }

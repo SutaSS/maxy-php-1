@@ -6,13 +6,15 @@ class Book
     public $pengarang;
     public $tahunTerbit;
     public $genre;
+    public $tersedia;
 
-    public function __construct($judul, $pengarang, $tahunTerbit, $genre)
+    public function __construct($judul, $pengarang, $tahunTerbit, $genre, $tersedia = true)
     {
         $this->judul = $judul;
         $this->pengarang = $pengarang;
         $this->tahunTerbit = $tahunTerbit;
         $this->genre = $genre;
+        $this->tersedia = $tersedia;
     }
 
     public function getDetailBuku()
